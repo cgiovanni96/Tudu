@@ -1,12 +1,12 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
-import { Field, ObjectType } from 'type-graphql'
+import { Field, ID, ObjectType } from 'type-graphql'
 
 @ObjectType()
 @Entity()
 export default class Todo extends BaseEntity {
-	@PrimaryGeneratedColumn({ type: 'uuid' })
-	@Field()
-	id: string
+	@PrimaryGeneratedColumn('uuid')
+	@Field(ID)
+	id!: string
 
 	@Column('text')
 	@Field()
@@ -16,7 +16,7 @@ export default class Todo extends BaseEntity {
 	@Field()
 	description: string
 
-	@Column('date')
+	@Column('date', { default: new Date(0) })
 	@Field()
 	dueDate: Date
 
