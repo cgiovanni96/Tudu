@@ -1,5 +1,8 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 import React from 'react'
+import { ThemeProvider } from 'styled-components'
+import theme from './theme'
+import GlobalStyles from './theme/GlobalStyles'
 import Todos from './Todos'
 
 const client = new ApolloClient({
@@ -10,7 +13,10 @@ const client = new ApolloClient({
 const App: React.FC = () => {
 	return (
 		<ApolloProvider client={client}>
-			<Todos />
+			<ThemeProvider theme={theme}>
+				<GlobalStyles />
+				<Todos />
+			</ThemeProvider>
 		</ApolloProvider>
 	)
 }
