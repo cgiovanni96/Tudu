@@ -1,5 +1,5 @@
-import { gql, useQuery } from '@apollo/client'
 import React from 'react'
+import { useGetAllTodosQuery } from './generated/graphql'
 
 interface Todo {
 	ID: string
@@ -11,18 +11,10 @@ interface Todos {
 	todos: Todo[]
 }
 
-const ALL_TODOS = gql`
-	query GetAllTodos {
-		todos {
-			ID
-			name
-			description
-		}
-	}
-`
-
 const Todos: React.FC = () => {
-	const { loading, error, data } = useQuery<Todos>(ALL_TODOS)
+	// const { loading, error, data } = useQuery<Todos>(ALL_TODOS)
+
+	const { loading, error, data } = useGetAllTodosQuery()
 
 	if (loading) return <div>Loading</div>
 	if (error) return <div>Error</div>
