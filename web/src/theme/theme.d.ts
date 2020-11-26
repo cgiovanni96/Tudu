@@ -1,5 +1,11 @@
 import 'styled-components'
 
+interface Typo {
+	family: string
+	size: string
+	weight: number
+}
+
 declare module 'styled-components' {
 	export interface DefaultTheme {
 		color: {
@@ -13,8 +19,8 @@ declare module 'styled-components' {
 		}
 
 		typo: {
-			title: string
-			detail: string
+			title: Typo
+			detail: Typo
 		}
 	}
 }

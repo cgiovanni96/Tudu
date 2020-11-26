@@ -12,8 +12,16 @@ const theme: DefaultTheme = {
 	},
 
 	typo: {
-		title: "'Raleway', sans-serif",
-		detail: "'Montserrat', sans-serif"
+		title: {
+			family: "'Raleway', sans-serif",
+			size: '4rem',
+			weight: 700
+		},
+		detail: {
+			family: "'Montserrat', sans-serif",
+			size: '1.5rem',
+			weight: 600
+		}
 	}
 }
 
