@@ -1,9 +1,10 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
+
 import theme from './theme'
 import GlobalStyles from './theme/GlobalStyles'
-import Todos from './Todos'
+import Router from './Router'
 
 const client = new ApolloClient({
 	uri: 'http://localhost:3500/graphql',
@@ -15,7 +16,7 @@ const App: React.FC = () => {
 		<ApolloProvider client={client}>
 			<ThemeProvider theme={theme}>
 				<GlobalStyles />
-				<Todos />
+				<Router />
 			</ThemeProvider>
 		</ApolloProvider>
 	)
