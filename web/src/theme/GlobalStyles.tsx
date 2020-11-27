@@ -6,6 +6,7 @@ const GlobalStyles = createGlobalStyle`
         margin: auto;
         background: ${({ theme }) => theme.color.background};
         color: ${({ theme }) => theme.color.text.primary};
+        font-family: ${({ theme }) => theme.typo.detail.family};
     }
 `
 

@@ -22,6 +22,10 @@ const theme: DefaultTheme = {
 			size: '1.5rem',
 			weight: 600
 		}
+	},
+
+	shadow: {
+		accent: '0 4px 4px rgba(8,166,255, .35)'
 	}
 }
 

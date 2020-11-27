@@ -22,5 +22,9 @@ declare module 'styled-components' {
 			title: Typo
 			detail: Typo
 		}
+
+		shadow: {
+			accent: string
+		}
 	}
 }
