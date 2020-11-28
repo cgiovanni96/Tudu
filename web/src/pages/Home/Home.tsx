@@ -5,6 +5,7 @@ import { useGetAllTodosQuery } from '../../generated/graphql'
 import { CalendarToday as PlanIcon } from '@styled-icons/material-outlined/CalendarToday'
 import { BuildCircle as ProgressIcon } from '@styled-icons/material-outlined/BuildCircle'
 import { DoneOutline as CompletedIcon } from '@styled-icons/material/DoneOutline'
+import TodoForm from './TodoForm'
 
 const Home: React.FC = () => {
 	// const { loading, error, data } = useQuery<Todos>(ALL_TODOS)
@@ -15,30 +16,33 @@ const Home: React.FC = () => {
 	if (error) return <div>Error</div>
 
 	return (
-		<TodoList>
-			{data &&
-				data.todos.map(({ ID, name, description }) => {
-					return (
-						<Todo key={ID}>
-							<TodoMain>
-								<TodoTitle>{name}</TodoTitle>
-								<TodoDesc>{description}</TodoDesc>
-							</TodoMain>
+		<>
+			<TodoForm />
+			<TodoList>
+				{data &&
+					data.todos.map(({ ID, name, description }) => {
+						return (
+							<Todo key={ID}>
+								<TodoMain>
+									<TodoTitle>{name}</TodoTitle>
+									<TodoDesc>{description}</TodoDesc>
+								</TodoMain>
 
-							<TodoDetail>
-								<TodoStatus>In progress</TodoStatus>
-								<TodoIconContainer>
-									<ProgressIcon size="24" />
+								<TodoDetail>
+									<TodoStatus>In progress</TodoStatus>
+									<TodoIconContainer>
+										<ProgressIcon size="24" />
 
-									<PlanIcon size="24" />
+										<PlanIcon size="24" />
 
-									<CompletedIcon size="24" />
-								</TodoIconContainer>
-							</TodoDetail>
-						</Todo>
-					)
-				})}
-		</TodoList>
+										<CompletedIcon size="24" />
+									</TodoIconContainer>
+								</TodoDetail>
+							</Todo>
+						)
+					})}
+			</TodoList>
+		</>
 	)
 }
 

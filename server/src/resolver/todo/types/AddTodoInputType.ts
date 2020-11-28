@@ -1,8 +1,9 @@
+import { IsDate, IsIn } from 'class-validator'
 import { Field, InputType } from 'type-graphql'
-import Todo from '../../../database/entity/Todo'
+import { StatusArray } from '../../../database/schema/StatusEnum'
 
 @InputType()
-export default class AddTodoInputType implements Partial<Todo> {
+export default class AddTodoInputType {
 	@Field({ nullable: false })
 	name: string
 
@@ -10,5 +11,10 @@ export default class AddTodoInputType implements Partial<Todo> {
 	description?: string
 
 	@Field({ nullable: true })
+	@IsDate()
 	dueDate?: Date
+
+	@Field({ nullable: true })
+	@IsIn([...StatusArray])
+	status?: string
 }

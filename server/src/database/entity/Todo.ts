@@ -1,5 +1,12 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import {
+	BaseEntity,
+	Column,
+	Entity,
+	ManyToOne,
+	PrimaryGeneratedColumn
+} from 'typeorm'
 import { Field, ID, ObjectType } from 'type-graphql'
+import Status from './Status'
 
 @ObjectType()
 @Entity()
@@ -19,6 +26,10 @@ export default class Todo extends BaseEntity {
 	@Column('date', { default: new Date(0) })
 	@Field()
 	dueDate: Date
+
+	@ManyToOne(() => Status, (status) => status.todos)
+	@Field((type) => Status)
+	status: Status
 
 	@Column('date', { default: new Date() })
 	@Field()
