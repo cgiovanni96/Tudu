@@ -3,6 +3,10 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input AddStatusInputType {
+  name: String!
+}
+
 input AddTodoInputType {
   description: String
   dueDate: DateTime
@@ -16,11 +20,13 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 scalar DateTime
 
 type Mutation {
+  addStatus(data: AddStatusInputType!): Status!
   addTodo(data: AddTodoInputType!): Todo!
 }
 
 type Query {
   hello: String!
+  status: [Status!]!
   todos: [Todo!]!
 }
 

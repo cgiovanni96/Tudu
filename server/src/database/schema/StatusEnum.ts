@@ -9,7 +9,7 @@ export enum StatusEnum {
 
 export const StatusArray = [
 	StatusEnum.progress,
-	StatusEnum.completed,
+	StatusEnum.planned,
 	StatusEnum.completed
 ]
 
