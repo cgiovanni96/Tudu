@@ -8,23 +8,41 @@ interface Typo {
 
 declare module 'styled-components' {
 	export interface DefaultTheme {
-		color: {
-			primary: string
-			background: string
-			form: string
+		palette: {
+			bg: string
+			accent: {
+				dark: string
+				medium: string
+				light: string
+			}
 			text: {
 				primary: string
 				secondary: string
 			}
+			tone: {
+				primary: string
+				secondary: string
+			}
+			status: {
+				progress: string
+				planned: string
+				completed: string
+			}
 		}
 
 		typo: {
-			title: Typo
-			detail: Typo
-		}
+			family: string
+			size: {
+				title: string
+				big: string
+				medium: string
+				small: string
+			}
 
-		shadow: {
-			accent: string
+			weight: {
+				bold: number
+				regular: number
+			}
 		}
 	}
 }

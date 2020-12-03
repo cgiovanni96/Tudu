@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
 				<Item to="/actives">Actives</Item>
 				<Item to="/completed">Completed</Item>
 			</Navigation>
-			<User>GIO</User>
+			<User>Hoodfc</User>
 		</Nav>
 	)
 }
@@ -39,21 +39,20 @@ const Item: React.FC<ItemProp> = (prop) => {
 export default Navbar
 
 const Nav = styled.div`
-	margin-top: 20px;
+	display: flex;
 	width: 100%;
 	height: 80px;
-	border-bottom: 4px solid ${({ theme }) => theme.color.primary};
-	display: flex;
 	align-items: center;
-	font-family: ${({ theme }) => theme.typo.detail.family};
-	font-size: ${({ theme }) => theme.typo.detail.size};
+	padding: 20px 0;
+	background: ${({ theme }) => theme.palette.accent.light};
+	font-size: ${({ theme }) => theme.typo.size.big};
 `
 const Title = styled.h1`
 	flex: 1;
 	margin-left: 1rem;
-	font-family: ${({ theme }) => theme.typo.title.family};
-	font-size: ${({ theme }) => theme.typo.title.size};
-	font-weight: ${({ theme }) => theme.typo.title.weight};
+	font-size: ${({ theme }) => theme.typo.size.title};
+	font-weight: ${({ theme }) => theme.typo.weight.bold};
+	color: ${({ theme }) => theme.palette.tone.primary};
 	text-align: center;
 `
 const Navigation = styled.ul`
@@ -67,11 +66,9 @@ const NavItem = styled.li`
 `
 
 const NavLink = styled(Link)<NavLinkProp>`
-	margin: 0 1em;
-	font-weight: ${({ theme }) => theme.typo.detail.weight};
 	text-decoration: none;
 	color: ${({ current, theme }) =>
-		current ? theme.color.primary : theme.color.text.secondary};
+		current ? theme.palette.text.primary : theme.palette.text.secondary};
 `
 
 const User = styled.div`
@@ -79,4 +76,6 @@ const User = styled.div`
 	margin-right: 20px;
 	display: flex;
 	justify-content: center;
+	color: ${({ theme }) => theme.palette.text.secondary};
+	font-weight: ${({ theme }) => theme.typo.weight.bold};
 `

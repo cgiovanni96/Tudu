@@ -1,31 +1,39 @@
 import { DefaultTheme } from 'styled-components/'
 
 const theme: DefaultTheme = {
-	color: {
-		primary: '#08A6FF',
-		background: '#FCFCFC',
-		form: '#E7E7E7',
-		text: {
-			primary: '#333333',
-			secondary: '#585858'
-		}
-	},
-
-	typo: {
-		title: {
-			family: "'Raleway', sans-serif",
-			size: '4rem',
-			weight: 700
+	palette: {
+		bg: '#24292E',
+		accent: {
+			dark: '#1B1D23',
+			medium: '#20242A',
+			light: '#2C313A'
 		},
-		detail: {
-			family: "'Montserrat', sans-serif",
-			size: '1.5rem',
-			weight: 600
+		text: {
+			primary: '#D6D8DA',
+			secondary: '#8795A3'
+		},
+		tone: {
+			primary: '#F9826C',
+			secondary: '#7371E2'
+		},
+		status: {
+			progress: '#37BB74',
+			planned: '#E0D24E',
+			completed: '#E3466C'
 		}
 	},
-
-	shadow: {
-		accent: '0 4px 4px rgba(8,166,255, .35)'
+	typo: {
+		family: "'Poppins', sans-serif;",
+		size: {
+			title: '48px',
+			big: '24px',
+			medium: '16px',
+			small: '12px'
+		},
+		weight: {
+			bold: 700,
+			regular: 400
+		}
 	}
 }
 
