@@ -1,12 +1,13 @@
 import {
 	BaseEntity,
 	Column,
+	CreateDateColumn,
 	Entity,
-	ManyToOne,
-	PrimaryGeneratedColumn
+	PrimaryGeneratedColumn,
+	UpdateDateColumn
 } from 'typeorm'
 import { Field, ID, ObjectType } from 'type-graphql'
-import Status from './Status'
+import { StatusEnum } from '../schema/StatusEnum'
 
 @ObjectType()
 @Entity()
@@ -27,15 +28,15 @@ export default class Todo extends BaseEntity {
 	@Field()
 	dueDate: Date
 
-	@ManyToOne(() => Status, (status) => status.todos)
-	@Field((type) => Status)
-	status: Status
+	@Column({ type: 'enum', enum: StatusEnum, default: StatusEnum.active })
+	@Field()
+	status: string
 
-	@Column('date', { default: new Date() })
+	@CreateDateColumn()
 	@Field()
 	createdAt: Date
 
-	@Column('date', { default: new Date() })
+	@UpdateDateColumn()
 	@Field()
 	updatedAt: Date
 }

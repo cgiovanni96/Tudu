@@ -1,14 +1,13 @@
-import { validate } from 'graphql'
 import { registerEnumType } from 'type-graphql'
 
 export enum StatusEnum {
-	progress = 'In Progress',
+	active = 'Active',
 	planned = 'Planned',
 	completed = 'Completed'
 }
 
 export const StatusArray = [
-	StatusEnum.progress,
+	StatusEnum.active,
 	StatusEnum.planned,
 	StatusEnum.completed
 ]
