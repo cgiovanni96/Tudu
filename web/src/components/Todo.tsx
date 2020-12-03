@@ -9,11 +9,12 @@ interface TodoProps {
 	ID: string
 	name: string
 	description: string
+	big: boolean
 }
 
-const Todo: React.FC<TodoProps> = ({ name, description, ID }) => {
+const Todo: React.FC<TodoProps> = ({ name, description, big }) => {
 	return (
-		<Base key={ID}>
+		<Base big={big}>
 			<TodoHeader>
 				<TodoTitle to="/">{name}</TodoTitle>
 				<TodoAction>
@@ -30,11 +31,13 @@ const Todo: React.FC<TodoProps> = ({ name, description, ID }) => {
 					</ActionElement>
 				</TodoAction>
 			</TodoHeader>
-
-			<TodoMain>
-				<TodoDescription>{description}</TodoDescription>
-			</TodoMain>
-
+			{big ? (
+				<TodoMain>
+					<TodoDescription>{description}</TodoDescription>
+				</TodoMain>
+			) : (
+				''
+			)}
 			<TodoFooter>
 				<Status>Active</Status>
 				<TagList>
@@ -52,12 +55,16 @@ const Todo: React.FC<TodoProps> = ({ name, description, ID }) => {
 
 export default Todo
 
+interface BaseProps {
+	big: boolean
+}
+
 interface ProjectNameProps {
 	color: string
 }
 
-const Base = styled.li`
-	min-height: 180px;
+const Base = styled.li<BaseProps>`
+	min-height: ${(props) => (props.big ? '180px' : '120px')};
 	padding: 30px 30px 10px 30px;
 	margin-bottom: 3rem;
 	border-radius: 16px;

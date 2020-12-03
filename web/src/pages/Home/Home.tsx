@@ -11,7 +11,7 @@ const Home: React.FC = () => {
 	if (loading) return <div>Loading</div>
 	if (error) return <div>Error</div>
 
-	return <>{data && <TodoList todos={data} />}</>
+	return <>{data && <TodoList todos={data.todos} />}</>
 }
 
 export default Home
