@@ -23,7 +23,7 @@ define(Tag, (faker: typeof Faker) => {
 })
 
 define(Todo, (faker: typeof Faker) => {
-	const name = faker.hacker.phrase()
+	const name = faker.lorem.sentence(5, 5)
 	const description = faker.lorem.paragraphs(2)
 
 	//status

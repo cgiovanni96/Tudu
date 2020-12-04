@@ -15,6 +15,7 @@ import { StatusEnum } from '../schema/StatusEnum'
 import Tag from './Tag'
 import slugify from '../../app/utils/slugify'
 import truncate from '../../app/utils/truncateDescription'
+import { v4 as uuidv4 } from 'uuid'
 
 @ObjectType()
 @Entity()
@@ -63,12 +64,12 @@ export default class Todo extends BaseEntity {
 	@BeforeInsert()
 	slugifyTitleOnInsert() {
 		this.slug = slugify(this.name)
-		this.descriptionSnippet = truncate(this.description, 15, true)
+		this.descriptionSnippet = truncate(this.description, 50, true)
 	}
 
 	@BeforeUpdate()
 	slugifyTitleOnUpdate() {
 		this.slug = slugify(this.name)
-		this.descriptionSnippet = truncate(this.description, 15, true)
+		this.descriptionSnippet = truncate(this.description, 50, true)
 	}
 }

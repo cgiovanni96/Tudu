@@ -1,40 +1,40 @@
 
+tag: iste,
+color: #6c7259 
+
+
+tag: praesentium,
+color: #48351c 
+
+
+tag: non,
+color: #070b18 
+
+
+tag: eum,
+color: #1c7941 
+
+
+tag: velit,
+color: #465b28 
+
+
+tag: sed,
+color: #036a73 
+
+
 tag: nam,
-color: #1b7c3e 
+color: #342e73 
 
 
-tag: aliquid,
-color: #5d4e60 
+tag: facilis,
+color: #48380b 
 
 
-tag: tempore,
-color: #586033 
+tag: animi,
+color: #48280c 
 
 
-tag: rerum,
-color: #4e4540 
-
-
-tag: voluptatem,
-color: #244f30 
-
-
-tag: aperiam,
-color: #2e7c74 
-
-
-tag: id,
-color: #68174c 
-
-
-tag: et,
-color: #296619 
-
-
-tag: deserunt,
-color: #1e4630 
-
-
-tag: aut,
-color: #602018 
+tag: optio,
+color: #657536 
 
