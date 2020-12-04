@@ -1,0 +1,40 @@
+
+tag: nam,
+color: #1b7c3e 
+
+
+tag: aliquid,
+color: #5d4e60 
+
+
+tag: tempore,
+color: #586033 
+
+
+tag: rerum,
+color: #4e4540 
+
+
+tag: voluptatem,
+color: #244f30 
+
+
+tag: aperiam,
+color: #2e7c74 
+
+
+tag: id,
+color: #68174c 
+
+
+tag: et,
+color: #296619 
+
+
+tag: deserunt,
+color: #1e4630 
+
+
+tag: aut,
+color: #602018 
+

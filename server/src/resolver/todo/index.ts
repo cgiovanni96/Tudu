@@ -1,5 +1,6 @@
 import { name } from 'faker'
 import { Arg, Mutation, Query, Resolver } from 'type-graphql'
+import Tag from '../../database/entity/Tag'
 import Todo from '../../database/entity/Todo'
 import AddTodoInputType from './types/AddTodoInputType'
 
@@ -8,7 +9,7 @@ export default class TodoResolver {
 	@Query(() => [Todo])
 	async todos(): Promise<Todo[]> {
 		try {
-			const todos: Todo[] | null = await Todo.find()
+			const todos: Todo[] | null = await Todo.find({ relations: ['tags'] })
 			return todos
 		} catch {
 			console.log('Something went wrong')
