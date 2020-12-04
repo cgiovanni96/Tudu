@@ -7,7 +7,7 @@ import GlobalStyles from './theme/GlobalStyles'
 import Router from './Router'
 
 const client = new ApolloClient({
-	uri: 'http://localhost:3500/graphql',
+	uri: 'http://localhost:8080/graphql',
 	cache: new InMemoryCache()
 })
 

@@ -1,13 +1,20 @@
 import {
 	BaseEntity,
+	BeforeInsert,
+	BeforeUpdate,
 	Column,
 	CreateDateColumn,
 	Entity,
+	JoinTable,
+	ManyToMany,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn
 } from 'typeorm'
 import { Field, ID, ObjectType } from 'type-graphql'
 import { StatusEnum } from '../schema/StatusEnum'
+import Tag from './Tag'
+import slugify from '../../app/utils/slugify'
+import truncate from '../../app/utils/truncateDescription'
 
 @ObjectType()
 @Entity()
@@ -32,6 +39,11 @@ export default class Todo extends BaseEntity {
 	@Field()
 	status: string
 
+	@ManyToMany(() => Tag, { nullable: true })
+	@JoinTable()
+	@Field(() => [Tag], { nullable: true })
+	tags?: Tag[]
+
 	@CreateDateColumn()
 	@Field()
 	createdAt: Date
@@ -39,4 +51,24 @@ export default class Todo extends BaseEntity {
 	@UpdateDateColumn()
 	@Field()
 	updatedAt: Date
+
+	@Column()
+	@Field()
+	slug: string
+
+	@Column()
+	@Field()
+	descriptionSnippet: string
+
+	@BeforeInsert()
+	slugifyTitleOnInsert() {
+		this.slug = slugify(this.name)
+		this.descriptionSnippet = truncate(this.description, 15, true)
+	}
+
+	@BeforeUpdate()
+	slugifyTitleOnUpdate() {
+		this.slug = slugify(this.name)
+		this.descriptionSnippet = truncate(this.description, 15, true)
+	}
 }
