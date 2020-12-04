@@ -17,10 +17,13 @@ scalar DateTime
 
 type Mutation {
   addTodo(data: AddTodoInputType!): Todo!
+  deleteTodo(name: String!): Boolean
+  updateTodo(name: String!): Boolean
 }
 
 type Query {
   hello: String!
+  todo(name: String!): Todo
   todos: [Todo!]!
 }
 
