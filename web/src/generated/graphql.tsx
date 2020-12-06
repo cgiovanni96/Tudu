@@ -1,70 +1,126 @@
 /* eslint-disable */
-import { gql } from '@apollo/client'
-import * as Apollo from '@apollo/client'
-export type Maybe<T> = T | null
-export type Exact<T extends { [key: string]: unknown }> = {
-	[K in keyof T]: T[K]
-}
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
+export type Maybe<T> = T | null;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-	ID: string
-	String: string
-	Boolean: boolean
-	Int: number
-	Float: number
-	/** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
-	DateTime: any
-}
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+  DateTime: any;
+};
 
 export type Query = {
-	__typename?: 'Query'
-	hello: Scalars['String']
-	todos: Array<Todo>
-}
+  __typename?: 'Query';
+  hello: Scalars['String'];
+  todos: Array<Todo>;
+  todo?: Maybe<Todo>;
+  tags?: Maybe<Array<Tag>>;
+  tag?: Maybe<Tag>;
+};
+
+
+export type QueryTodoArgs = {
+  name: Scalars['String'];
+};
+
+
+export type QueryTagArgs = {
+  name: Scalars['String'];
+};
 
 export type Todo = {
-	__typename?: 'Todo'
-	/** The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID. */
-	ID: Scalars['String']
-	name: Scalars['String']
-	description: Scalars['String']
-	dueDate: Scalars['DateTime']
-	createdAt: Scalars['DateTime']
-	updatedAt: Scalars['DateTime']
-}
+  __typename?: 'Todo';
+  /** The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID. */
+  ID: Scalars['String'];
+  name: Scalars['String'];
+  description: Scalars['String'];
+  dueDate: Scalars['DateTime'];
+  status: Scalars['String'];
+  tags?: Maybe<Array<Tag>>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  slug: Scalars['String'];
+  descriptionSnippet: Scalars['String'];
+};
+
+
+export type Tag = {
+  __typename?: 'Tag';
+  /** The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID. */
+  ID: Scalars['String'];
+  name: Scalars['String'];
+  color?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
 
 export type Mutation = {
-	__typename?: 'Mutation'
-	addTodo: Todo
-}
+  __typename?: 'Mutation';
+  addTodo: Todo;
+  deleteTodo?: Maybe<Scalars['Boolean']>;
+  updateTodo?: Maybe<Scalars['Boolean']>;
+  addTag?: Maybe<Tag>;
+};
+
 
 export type MutationAddTodoArgs = {
-	data: AddTodoInputType
-}
+  data: AddTodoInputType;
+};
+
+
+export type MutationDeleteTodoArgs = {
+  name: Scalars['String'];
+};
+
+
+export type MutationUpdateTodoArgs = {
+  name: Scalars['String'];
+};
+
+
+export type MutationAddTagArgs = {
+  data: AddTagInputType;
+};
 
 export type AddTodoInputType = {
-	name: Scalars['String']
-	description?: Maybe<Scalars['String']>
-	dueDate?: Maybe<Scalars['DateTime']>
-}
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  dueDate?: Maybe<Scalars['DateTime']>;
+  status?: Maybe<Scalars['String']>;
+};
 
-export type GetAllTodosQueryVariables = Exact<{ [key: string]: never }>
+export type AddTagInputType = {
+  name: Scalars['String'];
+  color?: Maybe<Scalars['String']>;
+};
 
-export type GetAllTodosQuery = { __typename?: 'Query' } & {
-	todos: Array<
-		{ __typename?: 'Todo' } & Pick<Todo, 'ID' | 'name' | 'description'>
-	>
-}
+export type GetAllTodosQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllTodosQuery = (
+  { __typename?: 'Query' }
+  & { todos: Array<(
+    { __typename?: 'Todo' }
+    & Pick<Todo, 'ID' | 'name' | 'description' | 'status'>
+  )> }
+);
+
 
 export const GetAllTodosDocument = gql`
-	query GetAllTodos {
-		todos {
-			ID
-			name
-			description
-		}
-	}
-`
+    query GetAllTodos {
+  todos {
+    ID
+    name
+    description
+    status
+  }
+}
+    `;
 
 /**
  * __useGetAllTodosQuery__
@@ -81,33 +137,12 @@ export const GetAllTodosDocument = gql`
  *   },
  * });
  */
-export function useGetAllTodosQuery(
-	baseOptions?: Apollo.QueryHookOptions<
-		GetAllTodosQuery,
-		GetAllTodosQueryVariables
-	>
-) {
-	return Apollo.useQuery<GetAllTodosQuery, GetAllTodosQueryVariables>(
-		GetAllTodosDocument,
-		baseOptions
-	)
-}
-export function useGetAllTodosLazyQuery(
-	baseOptions?: Apollo.LazyQueryHookOptions<
-		GetAllTodosQuery,
-		GetAllTodosQueryVariables
-	>
-) {
-	return Apollo.useLazyQuery<GetAllTodosQuery, GetAllTodosQueryVariables>(
-		GetAllTodosDocument,
-		baseOptions
-	)
-}
-export type GetAllTodosQueryHookResult = ReturnType<typeof useGetAllTodosQuery>
-export type GetAllTodosLazyQueryHookResult = ReturnType<
-	typeof useGetAllTodosLazyQuery
->
-export type GetAllTodosQueryResult = Apollo.QueryResult<
-	GetAllTodosQuery,
-	GetAllTodosQueryVariables
->
+export function useGetAllTodosQuery(baseOptions?: Apollo.QueryHookOptions<GetAllTodosQuery, GetAllTodosQueryVariables>) {
+        return Apollo.useQuery<GetAllTodosQuery, GetAllTodosQueryVariables>(GetAllTodosDocument, baseOptions);
+      }
+export function useGetAllTodosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllTodosQuery, GetAllTodosQueryVariables>) {
+          return Apollo.useLazyQuery<GetAllTodosQuery, GetAllTodosQueryVariables>(GetAllTodosDocument, baseOptions);
+        }
+export type GetAllTodosQueryHookResult = ReturnType<typeof useGetAllTodosQuery>;
+export type GetAllTodosLazyQueryHookResult = ReturnType<typeof useGetAllTodosLazyQuery>;
+export type GetAllTodosQueryResult = Apollo.QueryResult<GetAllTodosQuery, GetAllTodosQueryVariables>;

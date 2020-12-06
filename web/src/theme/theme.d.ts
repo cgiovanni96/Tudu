@@ -24,7 +24,7 @@ declare module 'styled-components' {
 				secondary: string
 			}
 			status: {
-				progress: string
+				active: string
 				planned: string
 				completed: string
 			}

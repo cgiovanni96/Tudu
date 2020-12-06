@@ -4,15 +4,19 @@ import { DoneOutline as CompletedIcon } from '@styled-icons/material-twotone/Don
 import { Edit as EditIcon } from '@styled-icons/material-outlined/Edit'
 import { Delete as DeleteIcon } from '@styled-icons/material-outlined/Delete'
 import { Link } from 'react-router-dom'
+import { useGetStatus } from '../utils/useGetStatus'
 
 interface TodoProps {
 	ID: string
 	name: string
 	description: string
 	big: boolean
+	status: string
 }
 
-const Todo: React.FC<TodoProps> = ({ name, description, big }) => {
+const Todo: React.FC<TodoProps> = ({ name, description, big, status }) => {
+	const statusColor = useGetStatus(status)
+
 	return (
 		<Base big={big}>
 			<TodoHeader>
@@ -39,7 +43,7 @@ const Todo: React.FC<TodoProps> = ({ name, description, big }) => {
 				''
 			)}
 			<TodoFooter>
-				<Status>Active</Status>
+				<Status color={statusColor}> {status} </Status>
 				<TagList>
 					<Tag>tag</Tag>
 					<Tag>tag</Tag>
@@ -57,10 +61,6 @@ export default Todo
 
 interface BaseProps {
 	big: boolean
-}
-
-interface ProjectNameProps {
-	color: string
 }
 
 const Base = styled.li<BaseProps>`
@@ -132,11 +132,15 @@ const TodoFooter = styled.div`
 	justify-content: space-between;
 `
 
-const Status = styled.div`
+interface StatusProps {
+	color: string
+}
+
+const Status = styled.div<StatusProps>`
 	padding: 10px 20px;
 	border-radius: 16px;
-	border: 1px solid ${({ theme }) => theme.palette.status.progress};
-	color: ${({ theme }) => theme.palette.status.progress};
+	color: ${(props) => props.color};
+	border: 1px solid ${(props) => props.color};
 	font-size: ${({ theme }) => theme.typo.size.medium};
 `
 
@@ -154,6 +158,9 @@ const Tag = styled.li`
 	border: 1px solid ${({ theme }) => theme.palette.accent.light};
 	color: ${({ theme }) => theme.palette.accent.light};
 `
+interface ProjectNameProps {
+	color: string
+}
 
 const ProjectName = styled(Link)<ProjectNameProps>`
 	font-weight: ${({ theme }) => theme.typo.weight.bold};

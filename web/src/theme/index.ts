@@ -17,7 +17,7 @@ const theme: DefaultTheme = {
 			secondary: '#7371E2'
 		},
 		status: {
-			progress: '#37BB74',
+			active: '#37BB74',
 			planned: '#E0D24E',
 			completed: '#E3466C'
 		}

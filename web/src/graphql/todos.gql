@@ -3,5 +3,6 @@ query GetAllTodos {
 		ID
 		name
 		description
+		status
 	}
 }
