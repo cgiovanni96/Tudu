@@ -6,19 +6,30 @@ import { Delete as DeleteIcon } from '@styled-icons/material-outlined/Delete'
 import { Link } from 'react-router-dom'
 import { useGetStatus } from '../utils/useGetStatus'
 
+import { TagFieldsFragment } from '../generated/graphql'
+import TagList from './TagList'
+
 interface TodoProps {
 	ID: string
 	name: string
 	description: string
 	big: boolean
 	status: string
+	tags?: TagFieldsFragment[]
 }
 
-const Todo: React.FC<TodoProps> = ({ name, description, big, status }) => {
+const Todo: React.FC<TodoProps> = (props) => {
+	const { name, description, big, status, tags } = props
 	const statusColor = useGetStatus(status)
 
+	const showDescription = () => {
+		if (status.toLowerCase() === 'completed') return false
+		if (big) return true
+		return true
+	}
+
 	return (
-		<Base big={big}>
+		<Base big={showDescription()}>
 			<TodoHeader>
 				<TodoTitle to="/">{name}</TodoTitle>
 				<TodoAction>
@@ -35,7 +46,7 @@ const Todo: React.FC<TodoProps> = ({ name, description, big, status }) => {
 					</ActionElement>
 				</TodoAction>
 			</TodoHeader>
-			{big ? (
+			{showDescription() ? (
 				<TodoMain>
 					<TodoDescription>{description}</TodoDescription>
 				</TodoMain>
@@ -44,11 +55,7 @@ const Todo: React.FC<TodoProps> = ({ name, description, big, status }) => {
 			)}
 			<TodoFooter>
 				<Status color={statusColor}> {status} </Status>
-				<TagList>
-					<Tag>tag</Tag>
-					<Tag>tag</Tag>
-					<Tag>tag</Tag>
-				</TagList>
+				<TagList tags={tags || undefined} />
 				<ProjectName color={'#406CDE'} to="/">
 					Tudu
 				</ProjectName>
@@ -121,11 +128,14 @@ const TodoMain = styled.div`
 
 const TodoDescription = styled.p`
 	padding-left: 2em;
-	font-size: ${({ theme }) => theme.typo.size.medium};
+	/* font-size: ${({ theme }) => theme.typo.size.medium}; */
+	font-size: 14px;
+	line-height: 1.2rem;
 	color: ${({ theme }) => theme.palette.text.secondary};
 `
 
 const TodoFooter = styled.div`
+	margin-top: 1em;
 	height: 40px;
 	display: flex;
 	align-items: center;
@@ -142,21 +152,6 @@ const Status = styled.div<StatusProps>`
 	color: ${(props) => props.color};
 	border: 1px solid ${(props) => props.color};
 	font-size: ${({ theme }) => theme.typo.size.medium};
-`
-
-const TagList = styled.ul`
-	flex: 1;
-	display: flex;
-	margin-left: 2em;
-	font-size: ${({ theme }) => theme.typo.size.small};
-`
-
-const Tag = styled.li`
-	margin-right: 1em;
-	padding: 5px 10px;
-	border-radius: 8px;
-	border: 1px solid ${({ theme }) => theme.palette.accent.light};
-	color: ${({ theme }) => theme.palette.accent.light};
 `
 interface ProjectNameProps {
 	color: string

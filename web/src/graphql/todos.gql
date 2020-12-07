@@ -4,5 +4,8 @@ query GetAllTodos {
 		name
 		description
 		status
+		tags {
+			...TagFields
+		}
 	}
 }

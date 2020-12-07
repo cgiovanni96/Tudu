@@ -6,7 +6,7 @@ import { GetAllTodosQuery } from '../../generated/graphql'
 const TodoList: React.FC<GetAllTodosQuery> = ({ todos }) => {
 	return (
 		<Base>
-			{todos.map(({ ID, name, description, status }) => {
+			{todos.map(({ ID, name, description, status, tags }) => {
 				const big = description ? true : false
 				return (
 					<Todo
@@ -16,6 +16,7 @@ const TodoList: React.FC<GetAllTodosQuery> = ({ todos }) => {
 						name={name}
 						description={description}
 						status={status}
+						tags={tags || undefined}
 					/>
 				)
 			})}
