@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { TagFieldsFragment } from '../generated/graphql'
+import { TagFieldsFragment } from '../../generated/graphql'
 
 interface TagListProps {
 	tags?: TagFieldsFragment[]

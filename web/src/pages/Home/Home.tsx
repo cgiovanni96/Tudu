@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useGetAllTodosQuery } from '../../generated/graphql'
-import TodoList from './TodoList'
+import TodoList from '../../components/TodoList'
 
 const Home: React.FC = () => {
 	// const { loading, error, data } = useQuery<Todos>(ALL_TODOS)

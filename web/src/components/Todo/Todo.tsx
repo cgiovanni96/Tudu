@@ -4,47 +4,60 @@ import { DoneOutline as CompletedIcon } from '@styled-icons/material-twotone/Don
 import { Edit as EditIcon } from '@styled-icons/material-outlined/Edit'
 import { Delete as DeleteIcon } from '@styled-icons/material-outlined/Delete'
 import { Link } from 'react-router-dom'
-import { useGetStatus } from '../utils/useGetStatus'
+import { useGetStatus } from '../../utils/useGetStatus'
 
-import { TagFieldsFragment } from '../generated/graphql'
+import { TagFieldsFragment } from '../../generated/graphql'
 import TagList from './TagList'
 
 interface TodoProps {
 	ID: string
 	name: string
 	description: string
-	big: boolean
 	status: string
 	tags?: TagFieldsFragment[]
 }
 
 const Todo: React.FC<TodoProps> = (props) => {
-	const { name, description, big, status, tags } = props
+	const { name, description, status, tags } = props
 	const statusColor = useGetStatus(status)
 
+	const type = () => {
+		if (isCompleted()) return 'completed'
+		else if (!description) return 'small'
+		else return 'normal'
+	}
+
+	const isCompleted = () => {
+		if (status.toLowerCase() === 'completed') return true
+		return false
+	}
+
 	const showDescription = () => {
-		if (status.toLowerCase() === 'completed') return false
-		if (big) return true
+		if (isCompleted()) return false
 		return true
 	}
 
 	return (
-		<Base big={showDescription()}>
+		<Base type={type()}>
 			<TodoHeader>
 				<TodoTitle to="/">{name}</TodoTitle>
-				<TodoAction>
-					<ActionElement>
-						<CompletedIcon size={24} />
-					</ActionElement>
+				{isCompleted() ? (
+					<Status color={statusColor}> {status} </Status>
+				) : (
+					<TodoAction>
+						<ActionElement>
+							<CompletedIcon size={24} />
+						</ActionElement>
 
-					<ActionElement>
-						<EditIcon size={24} />
-					</ActionElement>
+						<ActionElement>
+							<EditIcon size={24} />
+						</ActionElement>
 
-					<ActionElement>
-						<DeleteIcon size={24} />
-					</ActionElement>
-				</TodoAction>
+						<ActionElement>
+							<DeleteIcon size={24} />
+						</ActionElement>
+					</TodoAction>
+				)}
 			</TodoHeader>
 			{showDescription() ? (
 				<TodoMain>
@@ -53,13 +66,17 @@ const Todo: React.FC<TodoProps> = (props) => {
 			) : (
 				''
 			)}
-			<TodoFooter>
-				<Status color={statusColor}> {status} </Status>
-				<TagList tags={tags || undefined} />
-				<ProjectName color={'#406CDE'} to="/">
-					Tudu
-				</ProjectName>
-			</TodoFooter>
+			{isCompleted() ? (
+				''
+			) : (
+				<TodoFooter>
+					<Status color={statusColor}> {status} </Status>
+					<TagList tags={tags || undefined} />
+					<ProjectName color={'#406CDE'} to="/">
+						Tudu
+					</ProjectName>
+				</TodoFooter>
+			)}
 		</Base>
 	)
 }
@@ -67,11 +84,16 @@ const Todo: React.FC<TodoProps> = (props) => {
 export default Todo
 
 interface BaseProps {
-	big: boolean
+	type: string
 }
 
 const Base = styled.li<BaseProps>`
-	min-height: ${(props) => (props.big ? '180px' : '120px')};
+	min-height: ${(props) =>
+		props.type === 'normal'
+			? '180px'
+			: props.type === 'small'
+			? '120px'
+			: '40px'};
 	padding: 30px 30px 10px 30px;
 	margin-bottom: 3rem;
 	border-radius: 16px;
