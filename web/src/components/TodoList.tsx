@@ -25,9 +25,7 @@ const TodoList: React.FC<GetAllTodosQuery> = ({ todos }) => {
 export default TodoList
 
 const Base = styled.ul`
-	width: 60%;
-	margin: auto;
-	margin-top: 4rem;
+	margin-top: 2rem;
 	display: flex;
 	flex-direction: column;
 `
