@@ -1,0 +1,9 @@
+fragment TodosFields on Todo {
+	ID
+	name
+	description
+	status
+	tags {
+		...TagFields
+	}
+}

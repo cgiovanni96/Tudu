@@ -101,13 +101,18 @@ export type AddTagInputType = {
 
 export type TagFieldsFragment = { __typename?: 'Tag', ID: string, name: string, color?: Maybe<string> };
 
+export type TodosFieldsFragment = { __typename?: 'Todo', ID: string, name: string, description: string, status: string, tags?: Maybe<Array<(
+    { __typename?: 'Tag' }
+    & TagFieldsFragment
+  )>> };
+
 export type GetAllTodosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllTodosQuery = { __typename?: 'Query', todos: Array<{ __typename?: 'Todo', ID: string, name: string, description: string, status: string, tags?: Maybe<Array<(
-      { __typename?: 'Tag' }
-      & TagFieldsFragment
-    )>> }> };
+export type GetAllTodosQuery = { __typename?: 'Query', todos: Array<(
+    { __typename?: 'Todo' }
+    & TodosFieldsFragment
+  )> };
 
 export const TagFieldsFragmentDoc = gql`
     fragment TagFields on Tag {
@@ -116,19 +121,24 @@ export const TagFieldsFragmentDoc = gql`
   color
 }
     `;
-export const GetAllTodosDocument = gql`
-    query GetAllTodos {
-  todos {
-    ID
-    name
-    description
-    status
-    tags {
-      ...TagFields
-    }
+export const TodosFieldsFragmentDoc = gql`
+    fragment TodosFields on Todo {
+  ID
+  name
+  description
+  status
+  tags {
+    ...TagFields
   }
 }
     ${TagFieldsFragmentDoc}`;
+export const GetAllTodosDocument = gql`
+    query GetAllTodos {
+  todos {
+    ...TodosFields
+  }
+}
+    ${TodosFieldsFragmentDoc}`;
 
 /**
  * __useGetAllTodosQuery__

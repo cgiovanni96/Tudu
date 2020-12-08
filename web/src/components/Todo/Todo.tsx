@@ -6,19 +6,16 @@ import { Delete as DeleteIcon } from '@styled-icons/material-outlined/Delete'
 import { Link } from 'react-router-dom'
 import { useGetStatus } from '../../utils/useGetStatus'
 
-import { TagFieldsFragment } from '../../generated/graphql'
+import { TodosFieldsFragment } from '../../generated/graphql'
 import TagList from './TagList'
 
 interface TodoProps {
-	ID: string
-	name: string
-	description: string
-	status: string
-	tags?: TagFieldsFragment[]
+	todo: TodosFieldsFragment
 }
 
 const Todo: React.FC<TodoProps> = (props) => {
-	const { name, description, status, tags } = props
+	const { name, description, status, tags } = props.todo
+
 	const statusColor = useGetStatus(status)
 
 	const type = () => {
