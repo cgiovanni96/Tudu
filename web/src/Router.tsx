@@ -6,6 +6,7 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home/Home'
 import Actives from './pages/Actives/Actives'
 import Completed from './pages/Completed/Completed'
+import New from './pages/New/New'
 
 const Router: React.FC = () => {
 	return (
@@ -17,6 +18,7 @@ const Router: React.FC = () => {
 						<Route path="/" element={<Home />} />
 						<Route path="/actives" element={<Actives />} />
 						<Route path="/completed" element={<Completed />} />
+						<Route path="/new" element={<New />} />
 					</Routes>
 				</Wrapper>
 			</BrowserRouter>

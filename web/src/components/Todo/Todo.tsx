@@ -25,7 +25,7 @@ const Todo: React.FC<TodoProps> = (props) => {
 	}
 
 	const isCompleted = () => {
-		if (status.toLowerCase() === 'completed') return true
+		// if (status.toLowerCase() === 'completed') return true
 		return false
 	}
 

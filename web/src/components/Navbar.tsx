@@ -6,8 +6,11 @@ interface ItemProp {
 	to: string
 }
 
+// need to use a number instead of a boolean because
+// styled-components + react-router-dom give me an error with boolean
+// https://github.com/styled-components/styled-components/issues/1198
 interface NavLinkProp {
-	readonly current?: boolean
+	readonly current?: number
 }
 
 const Navbar: React.FC = () => {
@@ -26,7 +29,7 @@ const Navbar: React.FC = () => {
 
 const Item: React.FC<ItemProp> = (prop) => {
 	const { pathname } = useLocation()
-	const current = pathname == prop.to ? true : false
+	const current = pathname == prop.to ? 1 : 0
 	return (
 		<NavItem>
 			<NavLink to={prop.to} current={current}>

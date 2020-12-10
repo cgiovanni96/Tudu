@@ -1,0 +1,8 @@
+mutation AddTodo($data: AddTodoInputType!) {
+	addTodo(data: $data) {
+		ID
+		name
+		description
+		status
+	}
+}
