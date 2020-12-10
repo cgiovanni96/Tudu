@@ -4,6 +4,7 @@ import Todo from '../entity/Todo'
 import * as Faker from 'faker'
 import writeLogs from '../../app/utils/writeLogs'
 import Tag from '../entity/Tag'
+import randomDate from '../../app/utils/randomDate'
 
 let TagArray: Tag[] = []
 
@@ -39,10 +40,11 @@ define(Todo, (faker: typeof Faker) => {
 	todo.description = description
 	todo.status = status
 	todo.tags = [tag]
+	todo.dueDate = randomDate(new Date(2020, 9, 1), new Date())
 
 	writeLogs(
 		'todo',
-		`todo: \n${todo.name},\ndescription: ${todo.description},\nstatus: ${todo.status},\ntag: ${todo.tags[0].name} \n\n`
+		`todo: \n${todo.name},\ndescription: ${todo.description},\nstatus: ${todo.status},\ntag: ${todo.tags[0].name}\n dueDate: ${todo.dueDate} \n\n`
 	)
 
 	return todo

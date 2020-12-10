@@ -12,7 +12,7 @@ export default class AddTodoInputType {
 
 	@Field({ nullable: true })
 	@IsDate()
-	dueDate?: Date
+	dueDate?: string
 
 	@Field({ nullable: true })
 	@IsIn([...StatusArray])

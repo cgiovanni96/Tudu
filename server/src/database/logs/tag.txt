@@ -1,40 +1,40 @@
 
-tag: sapiente,
-color: #08327d 
+tag: quis,
+color: #7a464c 
 
 
-tag: minus,
-color: #6e3e17 
+tag: cum,
+color: #093533 
 
 
-tag: perferendis,
-color: #29612f 
+tag: voluptatem,
+color: #0f620a 
 
 
-tag: atque,
-color: #6b1b44 
+tag: est,
+color: #023d25 
 
 
-tag: illo,
-color: #0b4460 
+tag: amet,
+color: #1c3061 
 
 
-tag: in,
-color: #16534a 
+tag: vel,
+color: #423a0a 
 
 
-tag: assumenda,
-color: #1e6e1a 
+tag: accusantium,
+color: #1a4948 
 
 
-tag: voluptate,
-color: #540524 
+tag: nemo,
+color: #2f6805 
 
 
-tag: provident,
-color: #2b5a65 
+tag: magni,
+color: #2d3c08 
 
 
-tag: provident,
-color: #703420 
+tag: dolorum,
+color: #6e1661 
 

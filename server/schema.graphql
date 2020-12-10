@@ -10,7 +10,7 @@ input AddTagInputType {
 
 input AddTodoInputType {
   description: String
-  dueDate: DateTime
+  dueDate: String
   name: String!
   status: String
 }

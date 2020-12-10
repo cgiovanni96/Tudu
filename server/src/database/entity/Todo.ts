@@ -32,9 +32,9 @@ export default class Todo extends BaseEntity {
 	@Field()
 	description: string
 
-	@Column('date', { default: new Date(0) })
-	@Field()
-	dueDate: Date
+	@Column('timestamp', { default: new Date(0) })
+	@Field(() => Date)
+	dueDate: string
 
 	@Column({ type: 'enum', enum: StatusEnum, default: StatusEnum.active })
 	@Field()

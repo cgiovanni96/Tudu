@@ -34,7 +34,10 @@
       "typeorm": "0.2.29"
    },
    "scripts": {
-      "start": "ts-node-dev src/index.ts",
-         "seed": "rm -rf ./src/database/logs/*.txt && ts-node ./node_modules/typeorm-seeding/dist/cli.js seed" 
+      "schema:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop",
+      "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync", 
+      "seed": "yarn schema:drop && yarn schema:sync && rm -rf ./src/database/logs/*.txt && ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
+      "start": "yarn seed && ts-node-dev src/index.ts",
+      "dev":  "ts-node-dev src/index.ts"
    }
 }
