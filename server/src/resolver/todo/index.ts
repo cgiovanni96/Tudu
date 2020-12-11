@@ -9,7 +9,12 @@ export default class TodoResolver {
 	@Query(() => [Todo])
 	async todos(): Promise<Todo[]> {
 		try {
-			const todos: Todo[] | null = await Todo.find({ relations: ['tags'] })
+			const todos: Todo[] | null = await Todo.find({
+				relations: ['tags'],
+				order: {
+					dueDate: 'DESC'
+				}
+			})
 			return todos
 		} catch {
 			console.log('Something went wrong')

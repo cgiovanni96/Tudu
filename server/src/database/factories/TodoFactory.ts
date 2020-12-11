@@ -1,4 +1,4 @@
-import { StatusArray } from './../schema/StatusEnum'
+import { StatusArray, StatusEnum } from './../schema/StatusEnum'
 import { define } from 'typeorm-seeding'
 import Todo from '../entity/Todo'
 import * as Faker from 'faker'
@@ -40,8 +40,8 @@ define(Todo, (faker: typeof Faker) => {
 	todo.description = description
 	todo.status = status
 	todo.tags = [tag]
-	todo.dueDate = randomDate(new Date(2020, 9, 1), new Date())
-
+	if (todo.status === StatusEnum.planned)
+		todo.dueDate = randomDate(new Date(2020, 9, 1), new Date())
 	writeLogs(
 		'todo',
 		`todo: \n${todo.name},\ndescription: ${todo.description},\nstatus: ${todo.status},\ntag: ${todo.tags[0].name}\n dueDate: ${todo.dueDate} \n\n`

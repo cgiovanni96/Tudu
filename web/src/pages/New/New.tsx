@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import DatePicker from '../../components/DatePicker'
+
 import {
 	GetAllTodosDocument,
 	useAddTodoMutation,
@@ -43,6 +45,8 @@ const New: React.FC = () => {
 		}
 	})
 
+	const [startDate, setStartDate] = useState(new Date())
+
 	return (
 		<Base>
 			<FormSection>
@@ -60,7 +64,9 @@ const New: React.FC = () => {
 						placeholder="Insert your description"
 						rows={4}
 					/>
-
+					<DatePickerWrapper>
+						<DatePicker />
+					</DatePickerWrapper>
 					<AddButton type="submit">Submit</AddButton>
 				</Form>
 			</FormSection>
@@ -111,6 +117,12 @@ const Description = styled.textarea`
 	border-radius: 8px;
 	border: none;
 	resize: none;
+`
+
+const DatePickerWrapper = styled.div`
+	width: 50%;
+	margin: auto;
+	margin-bottom: 1em;
 `
 
 const AddButton = styled.button`

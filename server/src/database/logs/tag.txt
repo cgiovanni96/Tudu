@@ -1,40 +1,40 @@
 
+tag: sint,
+color: #1f360d 
+
+
+tag: tempora,
+color: #256b61 
+
+
+tag: et,
+color: #32361c 
+
+
+tag: voluptas,
+color: #3f0215 
+
+
+tag: reprehenderit,
+color: #2c390e 
+
+
+tag: ipsam,
+color: #377f17 
+
+
+tag: ratione,
+color: #626124 
+
+
+tag: omnis,
+color: #0a7436 
+
+
+tag: voluptate,
+color: #346570 
+
+
 tag: quis,
-color: #7a464c 
-
-
-tag: cum,
-color: #093533 
-
-
-tag: voluptatem,
-color: #0f620a 
-
-
-tag: est,
-color: #023d25 
-
-
-tag: amet,
-color: #1c3061 
-
-
-tag: vel,
-color: #423a0a 
-
-
-tag: accusantium,
-color: #1a4948 
-
-
-tag: nemo,
-color: #2f6805 
-
-
-tag: magni,
-color: #2d3c08 
-
-
-tag: dolorum,
-color: #6e1661 
+color: #530623 
 

@@ -90,7 +90,7 @@ export type MutationAddTagArgs = {
 export type AddTodoInputType = {
   name: Scalars['String'];
   description?: Maybe<Scalars['String']>;
-  dueDate?: Maybe<Scalars['DateTime']>;
+  dueDate?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
 };
 
@@ -108,7 +108,7 @@ export type AddTodoMutationVariables = Exact<{
 
 export type AddTodoMutation = { __typename?: 'Mutation', addTodo: { __typename?: 'Todo', ID: string, name: string, description: string, status: string } };
 
-export type TodosFieldsFragment = { __typename?: 'Todo', ID: string, name: string, description: string, status: string, tags?: Maybe<Array<(
+export type TodosFieldsFragment = { __typename?: 'Todo', ID: string, name: string, description: string, status: string, dueDate: any, tags?: Maybe<Array<(
     { __typename?: 'Tag' }
     & TagFieldsFragment
   )>> };
@@ -134,6 +134,7 @@ export const TodosFieldsFragmentDoc = gql`
   name
   description
   status
+  dueDate
   tags {
     ...TagFields
   }

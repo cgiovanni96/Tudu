@@ -3,6 +3,7 @@ fragment TodosFields on Todo {
 	name
 	description
 	status
+	dueDate
 	tags {
 		...TagFields
 	}

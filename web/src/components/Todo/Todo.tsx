@@ -4,8 +4,9 @@ import { DoneOutline as CompletedIcon } from '@styled-icons/material-twotone/Don
 import { Edit as EditIcon } from '@styled-icons/material-outlined/Edit'
 import { Delete as DeleteIcon } from '@styled-icons/material-outlined/Delete'
 import { Link } from 'react-router-dom'
-import { useGetStatus } from '../../utils/useGetStatus'
+import dateFormat from 'dateformat'
 
+import { useGetStatus } from '../../utils/useGetStatus'
 import { TodosFieldsFragment } from '../../generated/graphql'
 import TagList from './TagList'
 
@@ -14,9 +15,11 @@ interface TodoProps {
 }
 
 const Todo: React.FC<TodoProps> = (props) => {
-	const { name, description, status, tags } = props.todo
+	const { name, description, status, tags, dueDate } = props.todo
 
 	const statusColor = useGetStatus(status)
+
+	const formattedDate = dateFormat(dueDate, 'dd/mm/yy')
 
 	const type = () => {
 		if (isCompleted()) return 'completed'
@@ -25,7 +28,7 @@ const Todo: React.FC<TodoProps> = (props) => {
 	}
 
 	const isCompleted = () => {
-		// if (status.toLowerCase() === 'completed') return true
+		if (status.toLowerCase() === 'completed') return true
 		return false
 	}
 
@@ -39,33 +42,40 @@ const Todo: React.FC<TodoProps> = (props) => {
 			<TodoHeader>
 				<TodoTitle to="/">{name}</TodoTitle>
 				{isCompleted() ? (
-					<Status color={statusColor}> {status} </Status>
+					<Status color={statusColor} style={{ marginLeft: 'auto' }}>
+						{status}
+					</Status>
 				) : (
-					<TodoAction>
-						<ActionElement>
-							<CompletedIcon size={24} />
-						</ActionElement>
+					<>
+						{status === 'Planned' && (
+							<DueDate>
+								<span>Due: </span>
+								{formattedDate}
+							</DueDate>
+						)}
 
-						<ActionElement>
-							<EditIcon size={24} />
-						</ActionElement>
+						<TodoAction>
+							<ActionElement>
+								<CompletedIcon size={24} />
+							</ActionElement>
 
-						<ActionElement>
-							<DeleteIcon size={24} />
-						</ActionElement>
-					</TodoAction>
+							<ActionElement>
+								<EditIcon size={24} />
+							</ActionElement>
+
+							<ActionElement>
+								<DeleteIcon size={24} />
+							</ActionElement>
+						</TodoAction>
+					</>
 				)}
 			</TodoHeader>
-			{showDescription() ? (
+			{showDescription() && (
 				<TodoMain>
 					<TodoDescription>{description}</TodoDescription>
 				</TodoMain>
-			) : (
-				''
 			)}
-			{isCompleted() ? (
-				''
-			) : (
+			{!isCompleted() && (
 				<TodoFooter>
 					<Status color={statusColor}> {status} </Status>
 					<TagList tags={tags || undefined} />
@@ -103,7 +113,7 @@ const Base = styled.li<BaseProps>`
 const TodoHeader = styled.div`
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	padding-bottom: 1em;
 `
 
@@ -119,7 +129,19 @@ const TodoTitle = styled(Link)`
 	}
 `
 
+const DueDate = styled.div`
+	margin-left: 2em;
+	color: ${({ theme }) => theme.palette.accent.light};
+	font-size: 18px;
+
+	& > span {
+		color: ${({ theme }) => theme.palette.status.planned};
+		font-weight: ${({ theme }) => theme.typo.weight.bold};
+	}
+`
+
 const TodoAction = styled.ul`
+	margin-left: auto;
 	display: flex;
 	border-radius: 8px;
 	border: 2px solid ${({ theme }) => theme.palette.accent.light};

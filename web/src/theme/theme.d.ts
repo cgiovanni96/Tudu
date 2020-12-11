@@ -44,5 +44,25 @@ declare module 'styled-components' {
 				regular: number
 			}
 		}
+
+		reactDatepicker: {
+			daySize: Array<number>
+			fontFamily: string
+			colors: {
+				accessibility: string
+				selectedDay: string
+				selectedDayHover: string
+				primaryColor: string
+			}
+			dayLabelColor: string
+			inputColor: string
+			datepickerBackground: string
+			dayBackground: string
+			dayBorderColor: string
+			inputBackground: string
+			inputLabelBorder: string
+			navButtonBackground: string
+			navButtonBorder: string
+		}
 	}
 }
