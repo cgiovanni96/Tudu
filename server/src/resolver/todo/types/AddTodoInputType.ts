@@ -11,7 +11,6 @@ export default class AddTodoInputType {
 	description?: string
 
 	@Field({ nullable: true })
-	@IsDate()
 	dueDate?: string
 
 	@Field({ nullable: true })

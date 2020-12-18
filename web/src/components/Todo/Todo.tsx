@@ -16,7 +16,7 @@ interface TodoProps {
 
 const Todo: React.FC<TodoProps> = (props) => {
 	const { name, description, status, tags, dueDate } = props.todo
-
+	console.log('name', name, '\nduedate', dueDate)
 	const statusColor = useGetStatus(status)
 
 	const formattedDate = dateFormat(dueDate, 'dd/mm/yy')

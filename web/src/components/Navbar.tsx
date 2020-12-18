@@ -16,7 +16,7 @@ interface NavLinkProp {
 const Navbar: React.FC = () => {
 	return (
 		<Nav>
-			<Title>TUDU</Title>
+			<Title>Tudu</Title>
 			<Navigation>
 				<Item to="/">All</Item>
 				<Item to="/actives">Actives</Item>
@@ -47,7 +47,7 @@ const Nav = styled.div`
 	height: 80px;
 	align-items: center;
 	padding: 20px 0;
-	background: ${({ theme }) => theme.palette.accent.light};
+	/* background: ${({ theme }) => theme.palette.accent.light}; */
 	font-size: ${({ theme }) => theme.typo.size.big};
 `
 const Title = styled.h1`
@@ -71,7 +71,7 @@ const NavItem = styled.li`
 const NavLink = styled(Link)<NavLinkProp>`
 	text-decoration: none;
 	color: ${({ current, theme }) =>
-		current ? theme.palette.text.primary : theme.palette.text.secondary};
+		current ? theme.palette.tone.primary : theme.palette.text.secondary};
 `
 
 const User = styled.div`
