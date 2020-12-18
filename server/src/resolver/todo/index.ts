@@ -1,8 +1,10 @@
 import { name } from 'faker'
-import { Arg, Mutation, Query, Resolver } from 'type-graphql'
+import { Arg, Args, Mutation, Query, Resolver } from 'type-graphql'
 import Tag from '../../database/entity/Tag'
 import Todo from '../../database/entity/Todo'
+import { StatusEnum } from '../../database/schema/StatusEnum'
 import AddTodoInputType from './types/AddTodoInputType'
+import UpdateTodoInputType from './types/UpdateTodoInputType'
 
 @Resolver()
 export default class TodoResolver {
@@ -44,9 +46,9 @@ export default class TodoResolver {
 	}
 
 	@Mutation(() => Boolean, { nullable: true })
-	async deleteTodo(@Arg('name') name: string): Promise<boolean | null> {
+	async deleteTodo(@Arg('id') id: string): Promise<boolean | null> {
 		try {
-			await Todo.delete({ name })
+			await Todo.delete(id)
 			return true
 		} catch (e) {
 			console.error(e.message)
@@ -55,9 +57,23 @@ export default class TodoResolver {
 	}
 
 	@Mutation(() => Boolean, { nullable: true })
-	async updateTodo(@Arg('name') name: string): Promise<boolean | false> {
+	async updateTodo(
+		@Arg('name') name: string,
+		@Arg('data') updateData: UpdateTodoInputType
+	): Promise<boolean | null> {
 		try {
-			Todo.update({ name }, {})
+			Todo.update({ name }, { ...updateData })
+			return true
+		} catch {
+			console.error('Something went wrong')
+			return false
+		}
+	}
+
+	@Mutation(() => Boolean, { nullable: true })
+	async completeTodo(@Arg('id') id: string): Promise<boolean | null> {
+		try {
+			Todo.update(id, { status: StatusEnum.completed })
 			return true
 		} catch {
 			console.error('Something went wrong')

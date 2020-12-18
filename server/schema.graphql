@@ -23,8 +23,9 @@ scalar DateTime
 type Mutation {
   addTag(data: AddTagInputType!): Tag
   addTodo(data: AddTodoInputType!): Todo!
+  completeTodo(id: String!): Boolean
   deleteTodo(name: String!): Boolean
-  updateTodo(name: String!): Boolean
+  updateTodo(data: UpdateTodoInputType!, name: String!): Boolean
 }
 
 type Query {
@@ -62,4 +63,11 @@ type Todo {
   status: String!
   tags: [Tag!]
   updatedAt: DateTime!
+}
+
+input UpdateTodoInputType {
+  description: String
+  dueDate: String
+  name: String
+  status: String
 }
