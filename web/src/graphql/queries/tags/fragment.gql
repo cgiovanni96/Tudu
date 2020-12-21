@@ -1,0 +1,5 @@
+fragment TagsFragment on Tag {
+	ID
+	name
+	color
+}
