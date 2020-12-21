@@ -35,9 +35,14 @@ export default class TodoResolver {
 
 	@Mutation(() => Todo)
 	async addTodo(@Arg('data') newTodoData: AddTodoInputType): Promise<Todo> {
-		const { name, description, dueDate, status } = newTodoData
 		try {
+			const { name, description, dueDate, status, tags } = newTodoData
 			const todo = await Todo.create({ name, description, dueDate, status })
+
+			if (tags) {
+				const todoTags = await Tag.findByIds(tags)
+				todo.tags = todoTags
+			}
 
 			return todo.save()
 		} catch {

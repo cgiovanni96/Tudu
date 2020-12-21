@@ -1,40 +1,40 @@
 
-tag: architecto,
-color: #177253 
+tag: quo,
+color: #387c41 
 
 
-tag: et,
-color: #44064c 
+tag: distinctio,
+color: #252d58 
 
 
-tag: maxime,
-color: #5a2049 
+tag: accusantium,
+color: #734120 
 
 
-tag: possimus,
-color: #6e7905 
+tag: quas,
+color: #5b744c 
 
 
-tag: modi,
-color: #302948 
+tag: cum,
+color: #1f1475 
+
+
+tag: ipsam,
+color: #1d6e25 
+
+
+tag: placeat,
+color: #0a5c5b 
+
+
+tag: aut,
+color: #7c3e15 
 
 
 tag: tenetur,
-color: #274a14 
+color: #361c4e 
 
 
-tag: officiis,
-color: #112d66 
-
-
-tag: eligendi,
-color: #1a7603 
-
-
-tag: qui,
-color: #743e62 
-
-
-tag: cupiditate,
-color: #751858 
+tag: commodi,
+color: #7e0142 
 

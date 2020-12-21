@@ -1,4 +1,4 @@
-import { IsDate, IsIn } from 'class-validator'
+import { IsArray, IsDate, IsIn } from 'class-validator'
 import { Field, InputType } from 'type-graphql'
 import { StatusArray } from '../../../database/schema/StatusEnum'
 
@@ -16,4 +16,8 @@ export default class AddTodoInputType {
 	@Field({ nullable: true })
 	@IsIn([...StatusArray])
 	status?: string
+
+	@Field(() => [String], { nullable: true })
+	@IsArray()
+	tags?: string[]
 }

@@ -2,15 +2,16 @@ import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import Select, { StylesConfig } from 'react-select'
-
-import DatePicker from '../../components/DatePicker/DatePicker'
 
 import {
 	GetAllTodosDocument,
 	useAddTodoMutation,
 	GetAllTodosQuery
 } from '../../generated/graphql'
+import { selectOptions, SelectOptions } from './selectOption'
+import DatePicker from '../../components/DatePicker/DatePicker'
+import StatusSelect from './StatusSelect'
+import TagSelect from './TagsSelect'
 
 interface FormData {
 	name: string
@@ -18,42 +19,8 @@ interface FormData {
 	dueDate: Date
 }
 
-interface SelectOptions {
-	value: string
-	label: string
-}
-
-const selectOptions: SelectOptions[] = [
-	{ value: 'Active', label: 'Active' },
-	{ value: 'Planned', label: 'Planned' }
-]
-
-const customStyles: StylesConfig = {
-	option: (provided) => ({
-		...provided,
-		background: '#20242A'
-	}),
-	menu: (provided) => ({
-		...provided,
-		background: '#20242A',
-		color: '#D6D8DA'
-	}),
-	control: (provided) => ({
-		...provided,
-		background: '#20242A',
-		border: 'none',
-		color: '#D6D8DA',
-		width: '200px'
-	}),
-	placeholder: (provided) => ({
-		...provided,
-		color: '#D6D8DA'
-	}),
-
-	singleValue: (provided) => ({
-		...provided,
-		color: '#D6D8DA'
-	})
+export interface SelectedTag {
+	id: string
 }
 
 const New: React.FC = () => {
@@ -62,6 +29,7 @@ const New: React.FC = () => {
 	const [selectedStatus, setSelectedStatus] = useState<SelectOptions>(
 		selectOptions[0]
 	)
+	const [selectedTags, setSelectedTags] = useState<string[]>([])
 	const [addTodo] = useAddTodoMutation()
 	const navigate = useNavigate()
 
@@ -73,7 +41,8 @@ const New: React.FC = () => {
 						name,
 						description,
 						status: selectedStatus?.value,
-						dueDate: date?.toISOString()
+						dueDate: date?.toISOString(),
+						tags: selectedTags
 					}
 				},
 				update: (cache, { data: addTodo }) => {
@@ -113,14 +82,7 @@ const New: React.FC = () => {
 						rows={4}
 					/>
 					<Wrapper>
-						<Select
-							options={selectOptions}
-							styles={customStyles}
-							defaultValue={selectOptions[0]}
-							onChange={(option) => {
-								if (option) setSelectedStatus(option)
-							}}
-						/>
+						<StatusSelect setSelectedStatus={setSelectedStatus} />
 						{selectedStatus !== selectOptions[0] && (
 							<DatePickerWrapper>
 								<Controller
@@ -133,6 +95,9 @@ const New: React.FC = () => {
 								/>
 							</DatePickerWrapper>
 						)}
+					</Wrapper>
+					<Wrapper>
+						<TagSelect setSelectedTags={setSelectedTags} />
 					</Wrapper>
 					<AddButton type="submit">Submit</AddButton>
 				</Form>

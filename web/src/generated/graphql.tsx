@@ -64,6 +64,7 @@ export type Mutation = {
   addTodo: Todo;
   deleteTodo?: Maybe<Scalars['Boolean']>;
   updateTodo?: Maybe<Scalars['Boolean']>;
+  completeTodo?: Maybe<Scalars['Boolean']>;
   addTag?: Maybe<Tag>;
 };
 
@@ -74,12 +75,18 @@ export type MutationAddTodoArgs = {
 
 
 export type MutationDeleteTodoArgs = {
-  name: Scalars['String'];
+  id: Scalars['String'];
 };
 
 
 export type MutationUpdateTodoArgs = {
+  data: UpdateTodoInputType;
   name: Scalars['String'];
+};
+
+
+export type MutationCompleteTodoArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -89,6 +96,14 @@ export type MutationAddTagArgs = {
 
 export type AddTodoInputType = {
   name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  dueDate?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Scalars['String']>>;
+};
+
+export type UpdateTodoInputType = {
+  name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   dueDate?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
@@ -108,6 +123,16 @@ export type AddTodoMutationVariables = Exact<{
 
 export type AddTodoMutation = { __typename?: 'Mutation', addTodo: { __typename?: 'Todo', ID: string, name: string, description: string, status: string } };
 
+export type TagsFragmentFragment = { __typename?: 'Tag', ID: string, name: string, color?: Maybe<string> };
+
+export type GetAllTagsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllTagsQuery = { __typename?: 'Query', tags?: Maybe<Array<(
+    { __typename?: 'Tag' }
+    & TagsFragmentFragment
+  )>> };
+
 export type TodosFieldsFragment = { __typename?: 'Todo', ID: string, name: string, description: string, status: string, dueDate: any, tags?: Maybe<Array<(
     { __typename?: 'Tag' }
     & TagFieldsFragment
@@ -121,6 +146,13 @@ export type GetAllTodosQuery = { __typename?: 'Query', todos: Array<(
     & TodosFieldsFragment
   )> };
 
+export const TagsFragmentFragmentDoc = gql`
+    fragment TagsFragment on Tag {
+  ID
+  name
+  color
+}
+    `;
 export const TagFieldsFragmentDoc = gql`
     fragment TagFields on Tag {
   ID
@@ -175,6 +207,38 @@ export function useAddTodoMutation(baseOptions?: Apollo.MutationHookOptions<AddT
 export type AddTodoMutationHookResult = ReturnType<typeof useAddTodoMutation>;
 export type AddTodoMutationResult = Apollo.MutationResult<AddTodoMutation>;
 export type AddTodoMutationOptions = Apollo.BaseMutationOptions<AddTodoMutation, AddTodoMutationVariables>;
+export const GetAllTagsDocument = gql`
+    query GetAllTags {
+  tags {
+    ...TagsFragment
+  }
+}
+    ${TagsFragmentFragmentDoc}`;
+
+/**
+ * __useGetAllTagsQuery__
+ *
+ * To run a query within a React component, call `useGetAllTagsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllTagsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllTagsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllTagsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllTagsQuery, GetAllTagsQueryVariables>) {
+        return Apollo.useQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(GetAllTagsDocument, baseOptions);
+      }
+export function useGetAllTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllTagsQuery, GetAllTagsQueryVariables>) {
+          return Apollo.useLazyQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(GetAllTagsDocument, baseOptions);
+        }
+export type GetAllTagsQueryHookResult = ReturnType<typeof useGetAllTagsQuery>;
+export type GetAllTagsLazyQueryHookResult = ReturnType<typeof useGetAllTagsLazyQuery>;
+export type GetAllTagsQueryResult = Apollo.QueryResult<GetAllTagsQuery, GetAllTagsQueryVariables>;
 export const GetAllTodosDocument = gql`
     query GetAllTodos {
   todos {
