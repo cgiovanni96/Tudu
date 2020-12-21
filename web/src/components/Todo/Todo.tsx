@@ -56,7 +56,12 @@ const Todo: React.FC<TodoProps> = (props) => {
 
 						<TodoAction>
 							<ActionElement>
-								<CompletedIcon size={24} />
+								<CompletedIcon
+									size={24}
+									onClick={(e) => {
+										console.log(e)
+									}}
+								/>
 							</ActionElement>
 
 							<ActionElement>

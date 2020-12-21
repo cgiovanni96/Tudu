@@ -48,15 +48,17 @@ const Nav = styled.div`
 	align-items: center;
 	padding: 20px 0;
 	/* background: ${({ theme }) => theme.palette.accent.light}; */
-	font-size: ${({ theme }) => theme.typo.size.big};
+	/* font-size: ${({ theme }) => theme.typo.size.big}; */
+	font-size: 16px;
 `
 const Title = styled.h1`
 	flex: 1;
 	margin-left: 1rem;
-	font-size: ${({ theme }) => theme.typo.size.title};
+	/* font-size: ${({ theme }) => theme.typo.size.title}; */
 	font-weight: ${({ theme }) => theme.typo.weight.bold};
 	color: ${({ theme }) => theme.palette.tone.primary};
 	text-align: center;
+	font-size: 20px;
 `
 const Navigation = styled.ul`
 	flex: 2;
