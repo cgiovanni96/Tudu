@@ -1,76 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
-import { DoneOutline as CompletedIcon } from '@styled-icons/material-twotone/DoneOutline'
-import { Edit as EditIcon } from '@styled-icons/material-outlined/Edit'
-import { Delete as DeleteIcon } from '@styled-icons/material-outlined/Delete'
+
 import { Link } from 'react-router-dom'
 import dateFormat from 'dateformat'
 
 import { useGetStatus } from '../../utils/useGetStatus'
-import {
-	TodosFieldsFragment,
-	useCompleteTodoMutation
-} from '../../generated/graphql'
+import { TodosFieldsFragment } from '../../generated/graphql'
 import TagList from './TagList'
-import { gql } from '@apollo/client'
+import ActionMenu from './ActionMenu'
+import { isCompleted, showDescription, getTodoType } from './utils'
 
 interface TodoProps {
 	todo: TodosFieldsFragment
 }
 
 const Todo: React.FC<TodoProps> = (props) => {
-	const { id, name, description, status, tags, dueDate } = props.todo
+	const { name, description, status, tags, dueDate } = props.todo
 	const statusColor = useGetStatus(status)
 
 	const formattedDate = dateFormat(dueDate, 'dd/mm/yy')
-	const [completeTodo] = useCompleteTodoMutation()
-
-	const type = () => {
-		if (isCompleted()) return 'completed'
-		else if (!description) return 'small'
-		else return 'normal'
-	}
-
-	const isCompleted = () => {
-		if (status.toLowerCase() === 'completed') return true
-		return false
-	}
-
-	const showDescription = () => {
-		if (isCompleted()) return false
-		return true
-	}
-	const completeOnClick = async () => {
-		const { errors } = await completeTodo({
-			variables: {
-				id: id,
-				status: 'Completed'
-			}
-			// update: (cache, { data: completed }) => {
-			// 	const data = cache.readFragment<{
-			// 		id: string
-			// 		status: string
-			// 	}>({
-			// 		id: 'Todo:' + id,
-			// 		fragment: gql`
-			// 			fragment _ on Todo {
-			// 				id
-			// 				status
-			// 			}
-			// 		`
-			// 	})
-
-			// }
-		})
-
-		if (errors) console.error('Error!')
-	}
 
 	return (
-		<Base type={type()}>
+		<Base type={getTodoType(description, status)}>
 			<TodoHeader>
 				<TodoTitle to="/">{name}</TodoTitle>
-				{isCompleted() ? (
+				{isCompleted(status) ? (
 					<Status color={statusColor} style={{ marginLeft: 'auto' }}>
 						{status}
 					</Status>
@@ -83,28 +37,16 @@ const Todo: React.FC<TodoProps> = (props) => {
 							</DueDate>
 						)}
 
-						<TodoAction>
-							<ActionElement>
-								<CompletedIcon size={24} onClick={completeOnClick} />
-							</ActionElement>
-
-							<ActionElement>
-								<EditIcon size={24} />
-							</ActionElement>
-
-							<ActionElement>
-								<DeleteIcon size={24} />
-							</ActionElement>
-						</TodoAction>
+						<ActionMenu todo={props.todo} />
 					</>
 				)}
 			</TodoHeader>
-			{showDescription() && (
+			{showDescription(status) && (
 				<TodoMain>
 					<TodoDescription>{description}</TodoDescription>
 				</TodoMain>
 			)}
-			{!isCompleted() && (
+			{!isCompleted(status) && (
 				<TodoFooter>
 					<Status color={statusColor}> {status} </Status>
 					<TagList tags={tags || undefined} />
@@ -166,29 +108,6 @@ const DueDate = styled.div`
 	& > span {
 		color: ${({ theme }) => theme.palette.status.planned};
 		font-weight: ${({ theme }) => theme.typo.weight.bold};
-	}
-`
-
-const TodoAction = styled.ul`
-	margin-left: auto;
-	display: flex;
-	border-radius: 8px;
-	border: 2px solid ${({ theme }) => theme.palette.accent.light};
-`
-
-const ActionElement = styled.li`
-	color: ${({ theme }) => theme.palette.accent.light};
-	padding: 5px 10px;
-	border-right: 2px solid ${({ theme }) => theme.palette.accent.light};
-	cursor: pointer;
-	transition: 0.2s linear;
-
-	&:last-child {
-		border-right: none;
-	}
-
-	&:hover {
-		color: ${({ theme }) => theme.palette.tone.primary};
 	}
 `
 
