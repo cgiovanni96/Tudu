@@ -68,7 +68,7 @@ const TagSelect: React.FC<TagSelectProps> = ({ setSelectedTags }) => {
 	if (error) return <div>Error</div>
 	if (!data || !data.tags) return <div>Error</div>
 	const tagsOptions: TagOptions[] = data.tags.map((tag) => {
-		return { value: tag.ID, label: tag.name, color: tag.color }
+		return { value: tag.id, label: tag.name, color: tag.color }
 	})
 
 	return (

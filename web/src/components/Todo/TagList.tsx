@@ -11,9 +11,9 @@ const TagList: React.FC<TagListProps> = ({ tags }) => {
 	return (
 		<Base>
 			{tags &&
-				tags.map(({ ID, name, color }) => {
+				tags.map(({ id, name, color }) => {
 					return (
-						<Tag key={ID} color={color || undefined}>
+						<Tag key={id} color={color || undefined}>
 							{' '}
 							{name}{' '}
 						</Tag>

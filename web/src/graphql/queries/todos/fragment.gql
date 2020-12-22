@@ -1,5 +1,5 @@
 fragment TodosFields on Todo {
-	ID
+	id
 	name
 	description
 	status

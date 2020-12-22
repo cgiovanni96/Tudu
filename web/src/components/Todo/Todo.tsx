@@ -7,19 +7,23 @@ import { Link } from 'react-router-dom'
 import dateFormat from 'dateformat'
 
 import { useGetStatus } from '../../utils/useGetStatus'
-import { TodosFieldsFragment } from '../../generated/graphql'
+import {
+	TodosFieldsFragment,
+	useCompleteTodoMutation
+} from '../../generated/graphql'
 import TagList from './TagList'
+import { gql } from '@apollo/client'
 
 interface TodoProps {
 	todo: TodosFieldsFragment
 }
 
 const Todo: React.FC<TodoProps> = (props) => {
-	const { name, description, status, tags, dueDate } = props.todo
-	console.log('name', name, '\nduedate', dueDate)
+	const { id, name, description, status, tags, dueDate } = props.todo
 	const statusColor = useGetStatus(status)
 
 	const formattedDate = dateFormat(dueDate, 'dd/mm/yy')
+	const [completeTodo] = useCompleteTodoMutation()
 
 	const type = () => {
 		if (isCompleted()) return 'completed'
@@ -35,6 +39,31 @@ const Todo: React.FC<TodoProps> = (props) => {
 	const showDescription = () => {
 		if (isCompleted()) return false
 		return true
+	}
+	const completeOnClick = async () => {
+		const { errors } = await completeTodo({
+			variables: {
+				id: id,
+				status: 'Completed'
+			}
+			// update: (cache, { data: completed }) => {
+			// 	const data = cache.readFragment<{
+			// 		id: string
+			// 		status: string
+			// 	}>({
+			// 		id: 'Todo:' + id,
+			// 		fragment: gql`
+			// 			fragment _ on Todo {
+			// 				id
+			// 				status
+			// 			}
+			// 		`
+			// 	})
+
+			// }
+		})
+
+		if (errors) console.error('Error!')
 	}
 
 	return (
@@ -56,12 +85,7 @@ const Todo: React.FC<TodoProps> = (props) => {
 
 						<TodoAction>
 							<ActionElement>
-								<CompletedIcon
-									size={24}
-									onClick={(e) => {
-										console.log(e)
-									}}
-								/>
+								<CompletedIcon size={24} onClick={completeOnClick} />
 							</ActionElement>
 
 							<ActionElement>

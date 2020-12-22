@@ -21,7 +21,7 @@ import { v4 as uuidv4 } from 'uuid'
 @Entity()
 export default class Todo extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
-	@Field(ID)
+	@Field()
 	id!: string
 
 	@Column('text')

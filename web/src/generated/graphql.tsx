@@ -35,8 +35,7 @@ export type QueryTagArgs = {
 
 export type Todo = {
   __typename?: 'Todo';
-  /** The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID. */
-  ID: Scalars['String'];
+  id: Scalars['String'];
   name: Scalars['String'];
   description: Scalars['String'];
   dueDate: Scalars['DateTime'];
@@ -51,8 +50,7 @@ export type Todo = {
 
 export type Tag = {
   __typename?: 'Tag';
-  /** The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID. */
-  ID: Scalars['String'];
+  id: Scalars['String'];
   name: Scalars['String'];
   color?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
@@ -63,8 +61,8 @@ export type Mutation = {
   __typename?: 'Mutation';
   addTodo: Todo;
   deleteTodo?: Maybe<Scalars['Boolean']>;
-  updateTodo?: Maybe<Scalars['Boolean']>;
-  completeTodo?: Maybe<Scalars['Boolean']>;
+  updateTodo?: Maybe<Todo>;
+  completeTodo?: Maybe<Todo>;
   addTag?: Maybe<Tag>;
 };
 
@@ -81,7 +79,7 @@ export type MutationDeleteTodoArgs = {
 
 export type MutationUpdateTodoArgs = {
   data: UpdateTodoInputType;
-  name: Scalars['String'];
+  id: Scalars['String'];
 };
 
 
@@ -114,16 +112,24 @@ export type AddTagInputType = {
   color?: Maybe<Scalars['String']>;
 };
 
-export type TagFieldsFragment = { __typename?: 'Tag', ID: string, name: string, color?: Maybe<string> };
+export type TagFieldsFragment = { __typename?: 'Tag', id: string, name: string, color?: Maybe<string> };
 
 export type AddTodoMutationVariables = Exact<{
   data: AddTodoInputType;
 }>;
 
 
-export type AddTodoMutation = { __typename?: 'Mutation', addTodo: { __typename?: 'Todo', ID: string, name: string, description: string, status: string } };
+export type AddTodoMutation = { __typename?: 'Mutation', addTodo: { __typename?: 'Todo', id: string, name: string, description: string, status: string } };
 
-export type TagsFragmentFragment = { __typename?: 'Tag', ID: string, name: string, color?: Maybe<string> };
+export type CompleteTodoMutationVariables = Exact<{
+  id: Scalars['String'];
+  status: Scalars['String'];
+}>;
+
+
+export type CompleteTodoMutation = { __typename?: 'Mutation', updateTodo?: Maybe<{ __typename?: 'Todo', id: string, status: string }> };
+
+export type TagsFragmentFragment = { __typename?: 'Tag', id: string, name: string, color?: Maybe<string> };
 
 export type GetAllTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -133,7 +139,7 @@ export type GetAllTagsQuery = { __typename?: 'Query', tags?: Maybe<Array<(
     & TagsFragmentFragment
   )>> };
 
-export type TodosFieldsFragment = { __typename?: 'Todo', ID: string, name: string, description: string, status: string, dueDate: any, tags?: Maybe<Array<(
+export type TodosFieldsFragment = { __typename?: 'Todo', id: string, name: string, description: string, status: string, dueDate: any, tags?: Maybe<Array<(
     { __typename?: 'Tag' }
     & TagFieldsFragment
   )>> };
@@ -148,21 +154,21 @@ export type GetAllTodosQuery = { __typename?: 'Query', todos: Array<(
 
 export const TagsFragmentFragmentDoc = gql`
     fragment TagsFragment on Tag {
-  ID
+  id
   name
   color
 }
     `;
 export const TagFieldsFragmentDoc = gql`
     fragment TagFields on Tag {
-  ID
+  id
   name
   color
 }
     `;
 export const TodosFieldsFragmentDoc = gql`
     fragment TodosFields on Todo {
-  ID
+  id
   name
   description
   status
@@ -175,7 +181,7 @@ export const TodosFieldsFragmentDoc = gql`
 export const AddTodoDocument = gql`
     mutation AddTodo($data: AddTodoInputType!) {
   addTodo(data: $data) {
-    ID
+    id
     name
     description
     status
@@ -207,6 +213,40 @@ export function useAddTodoMutation(baseOptions?: Apollo.MutationHookOptions<AddT
 export type AddTodoMutationHookResult = ReturnType<typeof useAddTodoMutation>;
 export type AddTodoMutationResult = Apollo.MutationResult<AddTodoMutation>;
 export type AddTodoMutationOptions = Apollo.BaseMutationOptions<AddTodoMutation, AddTodoMutationVariables>;
+export const CompleteTodoDocument = gql`
+    mutation CompleteTodo($id: String!, $status: String!) {
+  updateTodo(id: $id, data: {status: $status}) {
+    id
+    status
+  }
+}
+    `;
+export type CompleteTodoMutationFn = Apollo.MutationFunction<CompleteTodoMutation, CompleteTodoMutationVariables>;
+
+/**
+ * __useCompleteTodoMutation__
+ *
+ * To run a mutation, you first call `useCompleteTodoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCompleteTodoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [completeTodoMutation, { data, loading, error }] = useCompleteTodoMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      status: // value for 'status'
+ *   },
+ * });
+ */
+export function useCompleteTodoMutation(baseOptions?: Apollo.MutationHookOptions<CompleteTodoMutation, CompleteTodoMutationVariables>) {
+        return Apollo.useMutation<CompleteTodoMutation, CompleteTodoMutationVariables>(CompleteTodoDocument, baseOptions);
+      }
+export type CompleteTodoMutationHookResult = ReturnType<typeof useCompleteTodoMutation>;
+export type CompleteTodoMutationResult = Apollo.MutationResult<CompleteTodoMutation>;
+export type CompleteTodoMutationOptions = Apollo.BaseMutationOptions<CompleteTodoMutation, CompleteTodoMutationVariables>;
 export const GetAllTagsDocument = gql`
     query GetAllTags {
   tags {

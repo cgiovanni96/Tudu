@@ -1,6 +1,6 @@
 mutation AddTodo($data: AddTodoInputType!) {
 	addTodo(data: $data) {
-		ID
+		id
 		name
 		description
 		status

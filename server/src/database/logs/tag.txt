@@ -1,40 +1,40 @@
 
-tag: quo,
-color: #387c41 
+tag: rerum,
+color: #1b3333 
 
 
-tag: distinctio,
-color: #252d58 
+tag: minus,
+color: #0a594e 
 
 
-tag: accusantium,
-color: #734120 
+tag: enim,
+color: #7b2532 
 
 
-tag: quas,
-color: #5b744c 
+tag: id,
+color: #360e4a 
 
 
-tag: cum,
-color: #1f1475 
+tag: accusamus,
+color: #57766c 
 
 
-tag: ipsam,
-color: #1d6e25 
+tag: ut,
+color: #204b04 
 
 
-tag: placeat,
-color: #0a5c5b 
+tag: delectus,
+color: #49702d 
 
 
-tag: aut,
-color: #7c3e15 
+tag: nihil,
+color: #503528 
 
 
-tag: tenetur,
-color: #361c4e 
+tag: sit,
+color: #1b5537 
 
 
-tag: commodi,
-color: #7e0142 
+tag: ut,
+color: #245e5c 
 

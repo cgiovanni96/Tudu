@@ -61,28 +61,32 @@ export default class TodoResolver {
 		}
 	}
 
-	@Mutation(() => Boolean, { nullable: true })
+	@Mutation(() => Todo, { nullable: true })
 	async updateTodo(
-		@Arg('name') name: string,
+		@Arg('id') id: string,
 		@Arg('data') updateData: UpdateTodoInputType
-	): Promise<boolean | null> {
+	): Promise<Todo | null> {
 		try {
-			Todo.update({ name }, { ...updateData })
-			return true
+			await Todo.update(id, { ...updateData })
+			const updatedTodo = await Todo.findOne(id)
+			if (updatedTodo) return updatedTodo
+			else return null
 		} catch {
 			console.error('Something went wrong')
-			return false
+			return null
 		}
 	}
 
-	@Mutation(() => Boolean, { nullable: true })
-	async completeTodo(@Arg('id') id: string): Promise<boolean | null> {
+	@Mutation(() => Todo, { nullable: true })
+	async completeTodo(@Arg('id') id: string): Promise<Todo | null> {
 		try {
-			Todo.update(id, { status: StatusEnum.completed })
-			return true
+			await Todo.update(id, { status: StatusEnum.completed })
+			const completedTodo = await Todo.findOne(id)
+			if (completedTodo) return completedTodo
+			else return null
 		} catch {
 			console.error('Something went wrong')
-			return false
+			return null
 		}
 	}
 }

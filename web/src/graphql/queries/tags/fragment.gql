@@ -1,5 +1,5 @@
 fragment TagsFragment on Tag {
-	ID
+	id
 	name
 	color
 }

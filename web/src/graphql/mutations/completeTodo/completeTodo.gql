@@ -1,0 +1,6 @@
+mutation CompleteTodo($id: String!, $status: String!) {
+	updateTodo(id: $id, data: { status: $status }) {
+		id
+		status
+	}
+}

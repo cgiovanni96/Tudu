@@ -12,7 +12,7 @@ import {
 @ObjectType()
 export default class Tag extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
-	@Field(ID)
+	@Field()
 	id: string
 
 	@Column()

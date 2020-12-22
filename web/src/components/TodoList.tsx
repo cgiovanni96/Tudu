@@ -7,7 +7,7 @@ const TodoList: React.FC<GetAllTodosQuery> = ({ todos }) => {
 	return (
 		<Base>
 			{todos.map((todo) => {
-				return <Todo key={todo.ID} todo={todo} />
+				return <Todo key={todo.id} todo={todo} />
 			})}
 		</Base>
 	)
