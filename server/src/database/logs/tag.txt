@@ -1,40 +1,40 @@
 
-tag: rerum,
-color: #1b3333 
+tag: velit,
+color: #4a5807 
 
 
-tag: minus,
-color: #0a594e 
+tag: omnis,
+color: #67115f 
 
 
-tag: enim,
-color: #7b2532 
+tag: error,
+color: #422318 
 
 
-tag: id,
-color: #360e4a 
+tag: cupiditate,
+color: #694b41 
 
 
-tag: accusamus,
-color: #57766c 
+tag: dignissimos,
+color: #166a29 
 
 
-tag: ut,
-color: #204b04 
+tag: ea,
+color: #6a4139 
 
 
-tag: delectus,
-color: #49702d 
+tag: vitae,
+color: #2a221c 
 
 
-tag: nihil,
-color: #503528 
+tag: corporis,
+color: #261877 
 
 
-tag: sit,
-color: #1b5537 
+tag: nobis,
+color: #14727a 
 
 
-tag: ut,
-color: #245e5c 
+tag: voluptatum,
+color: #13691d 
 

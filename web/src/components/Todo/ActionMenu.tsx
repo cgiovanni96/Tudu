@@ -4,8 +4,11 @@ import { DoneOutline as CompletedIcon } from '@styled-icons/material-twotone/Don
 import { Edit as EditIcon } from '@styled-icons/material-outlined/Edit'
 import { Delete as DeleteIcon } from '@styled-icons/material-outlined/Delete'
 import {
+	GetAllTodosDocument,
+	GetAllTodosQuery,
 	TodosFieldsFragment,
-	useCompleteTodoMutation
+	useCompleteTodoMutation,
+	useDeleteTodoMutation
 } from '../../generated/graphql'
 
 interface ActionMenuProps {
@@ -14,11 +17,36 @@ interface ActionMenuProps {
 
 const ActionMenu: React.FC<ActionMenuProps> = ({ todo }) => {
 	const [completeTodo] = useCompleteTodoMutation()
+	const [deleteTodo] = useDeleteTodoMutation()
 	const completeOnClick = async () => {
 		const { errors } = await completeTodo({
 			variables: {
 				id: todo.id,
 				status: 'Completed'
+			}
+		})
+
+		if (errors) console.error('Error!')
+	}
+
+	const deleteOnClick = async () => {
+		const { errors } = await deleteTodo({
+			variables: {
+				id: todo.id
+			},
+			update: (cache) => {
+				const previousTodos: GetAllTodosQuery | null = cache.readQuery({
+					query: GetAllTodosDocument
+				})
+
+				if (previousTodos) {
+					const newTodos = previousTodos.todos.filter((t) => t.id !== todo.id)
+
+					cache.writeQuery({
+						query: GetAllTodosDocument,
+						data: { todos: [...newTodos] }
+					})
+				}
 			}
 		})
 
@@ -36,7 +64,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ todo }) => {
 			</ActionElement>
 
 			<ActionElement>
-				<DeleteIcon size={24} />
+				<DeleteIcon size={24} onClick={deleteOnClick} />
 			</ActionElement>
 		</TodoAction>
 	)
